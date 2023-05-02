@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "homework10-5"
+version = "0.1.0"
+description = ""
+authors = ["gorandalex <andrii.gorobets@gmail.com>"]
+readme = "README.md"
+packages = [{include = "homework10_5"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2"
+psycopg2 = "^2.9.6"
+num2words = "^0.5.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

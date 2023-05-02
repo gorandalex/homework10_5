@@ -1,0 +1,15 @@
+{% extends 'quotes_app/base.html' %}
+
+{% block content %}
+    <h2>Authors</h2>
+    <ul>
+        {% if user.is_authenticated %}
+        <a href="{% url 'quotes_app:add_author' %}">add...</a>
+        {% endif %}
+        {% for author in authors %}
+            <li><a href="{% url 'quotes_app:author_detail' author.fullname %}">{{ author.fullname }}</a></li>
+        {% empty %}
+            <li>No authors yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

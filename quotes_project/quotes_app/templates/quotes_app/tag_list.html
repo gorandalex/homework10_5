@@ -1,0 +1,45 @@
+{% extends 'quotes_app/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Quotes with tag {{ tag }}</h1>
+        {% for quote in page_obj.object_list %}
+        <div class="quote" itemscope itemtype="http://schema.org/CreativeWork">
+            <span class="text" itemprop="text">{{ quote.quote }}</span>
+            <span class="author" itemprop="author">by {{ quote.author.fullname }}</span>
+            <br>
+            {% for tag in quote.tags.all %}
+            <a href="{% url 'quotes_app:tag_page' tag.name %}" class="tag">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+            <span class="current-page">{{ i }}</span>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+            <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-4 tags-box">
+        <h2>Top Ten tags</h2>
+        {% for tag in tags %}
+        <span class="tag-item">
+            <a href="{% url 'quotes_app:tag_page' tag.name %}" class="tag" style="font-size: {{tag.font_size}}px">{{ tag.name }}</a>
+        </span>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

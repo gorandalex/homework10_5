@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Quotes{% endblock %}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'quotes_app/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'quotes_app/main.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>
+          <a href="/" style="text-decoration: none">{% block header %}Quotes{% endblock %}</a>
+          <a href="/author_list">Authors</a>
+        </h1>
+        <h2>{% block subheader %}The best quotes on the web{% endblock %}</h2>
+      </div>
+      <div class="col-md-4">
+        {% if user.is_authenticated %}
+        <p class="text-right">Welcome, {{ user.username }}!</p>
+        <p class="text-right"><a href="{% url 'users:logout' %}">Logout</a></p>
+        {% else %}
+        <p class="text-right"><a href="{% url 'users:signup' %}">Signup</a></p>
+        <p class="text-right"><a href="{% url 'users:login' %}">Login</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+
+</html>
